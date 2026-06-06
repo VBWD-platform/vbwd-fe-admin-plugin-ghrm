@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "Screenshots"
-      }
+      },
+      "labelCollaboratorPermission": "GitHub-Zugriffsebene",
+      "permissionRead": "Lesen (nur klonen)",
+      "permissionTriage": "Triage",
+      "permissionWrite": "Schreiben",
+      "permissionMaintain": "Verwalten",
+      "permissionAdmin": "Administrator",
+      "permissionGatedHint": "Schreibzugriff und höher ist deaktiviert. Aktivieren Sie 'Erweiterte GitHub-Berechtigungen zulassen' in den GHRM-Plugin-Einstellungen, um mehr als Lesezugriff zu gewähren."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Katalogseite:",

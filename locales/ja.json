@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "スクリーンショット"
-      }
+      },
+      "labelCollaboratorPermission": "GitHub アクセスレベル",
+      "permissionRead": "読み取り（クローンのみ）",
+      "permissionTriage": "トリアージ",
+      "permissionWrite": "書き込み",
+      "permissionMaintain": "メンテナンス",
+      "permissionAdmin": "管理者",
+      "permissionGatedHint": "書き込み以上のアクセスは無効です。読み取り以上の権限を付与するには、GHRMプラグイン設定で「拡張GitHub権限を許可する」を有効にしてください。"
     },
     "breadcrumbPreview": {
       "cataloguePage": "カタログページ:",

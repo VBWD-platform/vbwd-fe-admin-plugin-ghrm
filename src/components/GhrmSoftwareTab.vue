@@ -63,6 +63,32 @@
         />
       </div>
 
+      <!-- GitHub Access Level -->
+      <div class="ghrm-field">
+        <label class="ghrm-label">{{ $t('ghrm.softwareTab.labelCollaboratorPermission') }}</label>
+        <select
+          v-model="form.collaborator_permission"
+          class="ghrm-input"
+          data-testid="ghrm-collaborator-permission"
+        >
+          <option
+            v-for="level in collaboratorPermissionLevels"
+            :key="level.value"
+            :value="level.value"
+            :disabled="isPermissionOptionDisabled(level.value)"
+          >
+            {{ $t(level.labelKey) }}
+          </option>
+        </select>
+        <p
+          v-if="!allowExtensivePermissions"
+          class="ghrm-hint ghrm-hint--warn"
+          data-testid="ghrm-permission-hint"
+        >
+          {{ $t('ghrm.softwareTab.permissionGatedHint') }}
+        </p>
+      </div>
+
       <!-- Author -->
       <div class="ghrm-field">
         <label class="ghrm-label">{{ $t('ghrm.softwareTab.labelAuthor') }}</label>
@@ -302,7 +328,18 @@ interface GhrmPackage {
   github_repo: string;
   sync_api_key: string;
   last_synced_at: string | null;
+  collaborator_permission: string;
 }
+
+const DEFAULT_COLLABORATOR_PERMISSION = 'pull';
+
+const collaboratorPermissionLevels: { value: string; labelKey: string }[] = [
+  { value: 'pull', labelKey: 'ghrm.softwareTab.permissionRead' },
+  { value: 'triage', labelKey: 'ghrm.softwareTab.permissionTriage' },
+  { value: 'push', labelKey: 'ghrm.softwareTab.permissionWrite' },
+  { value: 'maintain', labelKey: 'ghrm.softwareTab.permissionMaintain' },
+  { value: 'admin', labelKey: 'ghrm.softwareTab.permissionAdmin' },
+];
 
 type PartialSyncField = 'readme' | 'changelog' | 'screenshots';
 
@@ -333,6 +370,15 @@ const syncError = ref<string | null>(null);
 
 const pkg = ref<GhrmPackage | null>(null);
 
+// D3 security guardrail: write+ levels are only offered when the backend flag
+// `allow_extensive_github_permissions` is true. Default false => only Read.
+const allowExtensivePermissions = ref(false);
+
+function isPermissionOptionDisabled(value: string): boolean {
+  if (allowExtensivePermissions.value) return false;
+  return value !== DEFAULT_COLLABORATOR_PERMISSION;
+}
+
 const form = ref({
   name: '',
   description: '',
@@ -340,6 +386,7 @@ const form = ref({
   github_repo: '',
   author_name: '',
   icon_url: '',
+  collaborator_permission: DEFAULT_COLLABORATOR_PERMISSION,
 });
 
 const partialSyncFields: PartialSyncField[] = ['readme', 'changelog', 'screenshots'];
@@ -381,6 +428,18 @@ async function apiFetch<T>(url: string, options: { method?: string; headers?: Re
   return resp.json();
 }
 
+async function loadConfig(): Promise<void> {
+  try {
+    const config = await apiFetch<{ allow_extensive_github_permissions?: boolean }>(
+      '/api/v1/ghrm/config'
+    );
+    allowExtensivePermissions.value = config.allow_extensive_github_permissions === true;
+  } catch {
+    // On failure default to the safe (locked-down) state: Read only.
+    allowExtensivePermissions.value = false;
+  }
+}
+
 async function loadPackage(): Promise<void> {
   loading.value = true;
   error.value = null;
@@ -398,6 +457,7 @@ async function loadPackage(): Promise<void> {
         github_repo: found.github_repo || '',
         author_name: found.author_name || '',
         icon_url: found.icon_url || '',
+        collaborator_permission: found.collaborator_permission || DEFAULT_COLLABORATOR_PERMISSION,
       };
     }
   } catch (e) {
@@ -421,6 +481,7 @@ async function save(): Promise<void> {
       github_repo: form.value.github_repo,
       author_name: form.value.author_name || null,
       icon_url: form.value.icon_url || null,
+      collaborator_permission: form.value.collaborator_permission || DEFAULT_COLLABORATOR_PERMISSION,
     };
     const jsonHeaders = { 'Content-Type': 'application/json' };
     if (pkg.value) {
@@ -541,7 +602,10 @@ async function copyKey(): Promise<void> {
   setTimeout(() => { keyCopied.value = false; }, 2000);
 }
 
-onMounted(loadPackage);
+onMounted(() => {
+  loadConfig();
+  loadPackage();
+});
 </script>
 
 <style scoped>
@@ -685,6 +749,10 @@ onMounted(loadPackage);
   padding: 1px 4px;
   border-radius: 3px;
   font-family: monospace;
+}
+
+.ghrm-hint--warn {
+  color: var(--vbwd-color-warning, #b45309);
 }
 
 .ghrm-success {

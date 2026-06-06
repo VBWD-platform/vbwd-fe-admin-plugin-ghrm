@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "Capturas de pantalla"
-      }
+      },
+      "labelCollaboratorPermission": "Nivel de acceso de GitHub",
+      "permissionRead": "Lectura (solo clonar)",
+      "permissionTriage": "Clasificación",
+      "permissionWrite": "Escritura",
+      "permissionMaintain": "Mantenimiento",
+      "permissionAdmin": "Administrador",
+      "permissionGatedHint": "El acceso de escritura o superior está deshabilitado. Active 'Permitir permisos extensos de GitHub' en la configuración del complemento GHRM para conceder más que acceso de lectura."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Pagina del catalogo:",

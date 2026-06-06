@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "截图"
-      }
+      },
+      "labelCollaboratorPermission": "GitHub 访问级别",
+      "permissionRead": "读取（仅克隆）",
+      "permissionTriage": "分类",
+      "permissionWrite": "写入",
+      "permissionMaintain": "维护",
+      "permissionAdmin": "管理员",
+      "permissionGatedHint": "写入及更高权限已禁用。请在 GHRM 插件设置中启用“允许扩展的 GitHub 权限”以授予超出只读的权限。"
     },
     "breadcrumbPreview": {
       "cataloguePage": "目录页：",

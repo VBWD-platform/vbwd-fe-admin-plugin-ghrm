@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "ภาพหน้าจอ"
-      }
+      },
+      "labelCollaboratorPermission": "ระดับการเข้าถึง GitHub",
+      "permissionRead": "อ่าน (โคลนเท่านั้น)",
+      "permissionTriage": "คัดแยก",
+      "permissionWrite": "เขียน",
+      "permissionMaintain": "ดูแลรักษา",
+      "permissionAdmin": "ผู้ดูแลระบบ",
+      "permissionGatedHint": "การเข้าถึงระดับเขียนขึ้นไปถูกปิดใช้งาน เปิดใช้ 'อนุญาตสิทธิ์ GitHub แบบขยาย' ในการตั้งค่าปลั๊กอิน GHRM เพื่อให้สิทธิ์มากกว่าการอ่าน"
     },
     "breadcrumbPreview": {
       "cataloguePage": "หน้าแคตตาล็อก:",

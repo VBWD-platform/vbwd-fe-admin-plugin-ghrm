@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "Captures d'ecran"
-      }
+      },
+      "labelCollaboratorPermission": "Niveau d'accès GitHub",
+      "permissionRead": "Lecture (clone uniquement)",
+      "permissionTriage": "Triage",
+      "permissionWrite": "Écriture",
+      "permissionMaintain": "Maintenance",
+      "permissionAdmin": "Administrateur",
+      "permissionGatedHint": "L'accès en écriture ou supérieur est désactivé. Activez 'Autoriser les autorisations GitHub étendues' dans les paramètres du plugin GHRM pour accorder plus que l'accès en lecture."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Page catalogue :",

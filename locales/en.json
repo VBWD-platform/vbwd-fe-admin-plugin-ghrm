@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "Screenshots"
-      }
+      },
+      "labelCollaboratorPermission": "GitHub Access Level",
+      "permissionRead": "Read (clone only)",
+      "permissionTriage": "Triage",
+      "permissionWrite": "Write",
+      "permissionMaintain": "Maintain",
+      "permissionAdmin": "Admin",
+      "permissionGatedHint": "Write+ access is disabled. Enable 'Allow extensive GitHub permissions' in the GHRM plugin settings to grant more than read access."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Catalogue page:",

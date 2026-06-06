@@ -47,7 +47,14 @@
         "readme": "README",
         "changelog": "Changelog",
         "screenshots": "Скриншоты"
-      }
+      },
+      "labelCollaboratorPermission": "Уровень доступа GitHub",
+      "permissionRead": "Чтение (только клонирование)",
+      "permissionTriage": "Сортировка",
+      "permissionWrite": "Запись",
+      "permissionMaintain": "Сопровождение",
+      "permissionAdmin": "Администратор",
+      "permissionGatedHint": "Доступ на запись и выше отключён. Включите «Разрешить расширенные права GitHub» в настройках плагина GHRM, чтобы предоставить больше прав, чем только чтение."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Страница каталога:",
