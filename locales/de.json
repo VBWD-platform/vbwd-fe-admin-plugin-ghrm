@@ -54,7 +54,17 @@
       "permissionWrite": "Schreiben",
       "permissionMaintain": "Verwalten",
       "permissionAdmin": "Administrator",
-      "permissionGatedHint": "Schreibzugriff und höher ist deaktiviert. Aktivieren Sie 'Erweiterte GitHub-Berechtigungen zulassen' in den GHRM-Plugin-Einstellungen, um mehr als Lesezugriff zu gewähren."
+      "permissionGatedHint": "Schreibzugriff und höher ist deaktiviert. Aktivieren Sie 'Erweiterte GitHub-Berechtigungen zulassen' in den GHRM-Plugin-Einstellungen, um mehr als Lesezugriff zu gewähren.",
+      "labelMode": "Package Type",
+      "modeSingle": "Single repo",
+      "modeBundle": "Bundle (many repos)",
+      "labelShowcaseRepo": "Showcase repo owner (catalogue & sync) *",
+      "labelBundleRepos": "Bundle repositories *",
+      "addBundleRepo": "Add repository",
+      "removeBundleRepo": "Remove",
+      "bundleReposHint": "Customers who buy this bundle become collaborators on every repository listed below. Find the repos using the org search:",
+      "bundleEmptyError": "A bundle must list at least one repository, and every row needs a non-empty owner and repo.",
+      "permissionBundleHint": "This access level applies to every repository in the bundle."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Katalogseite:",

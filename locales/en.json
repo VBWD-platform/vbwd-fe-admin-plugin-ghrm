@@ -54,7 +54,17 @@
       "permissionWrite": "Write",
       "permissionMaintain": "Maintain",
       "permissionAdmin": "Admin",
-      "permissionGatedHint": "Write+ access is disabled. Enable 'Allow extensive GitHub permissions' in the GHRM plugin settings to grant more than read access."
+      "permissionGatedHint": "Write+ access is disabled. Enable 'Allow extensive GitHub permissions' in the GHRM plugin settings to grant more than read access.",
+      "labelMode": "Package Type",
+      "modeSingle": "Single repo",
+      "modeBundle": "Bundle (many repos)",
+      "labelShowcaseRepo": "Showcase repo owner (catalogue & sync) *",
+      "labelBundleRepos": "Bundle repositories *",
+      "addBundleRepo": "Add repository",
+      "removeBundleRepo": "Remove",
+      "bundleReposHint": "Customers who buy this bundle become collaborators on every repository listed below. Find the repos using the org search:",
+      "bundleEmptyError": "A bundle must list at least one repository, and every row needs a non-empty owner and repo.",
+      "permissionBundleHint": "This access level applies to every repository in the bundle."
     },
     "breadcrumbPreview": {
       "cataloguePage": "Catalogue page:",

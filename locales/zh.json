@@ -54,7 +54,17 @@
       "permissionWrite": "写入",
       "permissionMaintain": "维护",
       "permissionAdmin": "管理员",
-      "permissionGatedHint": "写入及更高权限已禁用。请在 GHRM 插件设置中启用“允许扩展的 GitHub 权限”以授予超出只读的权限。"
+      "permissionGatedHint": "写入及更高权限已禁用。请在 GHRM 插件设置中启用“允许扩展的 GitHub 权限”以授予超出只读的权限。",
+      "labelMode": "Package Type",
+      "modeSingle": "Single repo",
+      "modeBundle": "Bundle (many repos)",
+      "labelShowcaseRepo": "Showcase repo owner (catalogue & sync) *",
+      "labelBundleRepos": "Bundle repositories *",
+      "addBundleRepo": "Add repository",
+      "removeBundleRepo": "Remove",
+      "bundleReposHint": "Customers who buy this bundle become collaborators on every repository listed below. Find the repos using the org search:",
+      "bundleEmptyError": "A bundle must list at least one repository, and every row needs a non-empty owner and repo.",
+      "permissionBundleHint": "This access level applies to every repository in the bundle."
     },
     "breadcrumbPreview": {
       "cataloguePage": "目录页：",

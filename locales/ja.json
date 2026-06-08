@@ -54,7 +54,17 @@
       "permissionWrite": "書き込み",
       "permissionMaintain": "メンテナンス",
       "permissionAdmin": "管理者",
-      "permissionGatedHint": "書き込み以上のアクセスは無効です。読み取り以上の権限を付与するには、GHRMプラグイン設定で「拡張GitHub権限を許可する」を有効にしてください。"
+      "permissionGatedHint": "書き込み以上のアクセスは無効です。読み取り以上の権限を付与するには、GHRMプラグイン設定で「拡張GitHub権限を許可する」を有効にしてください。",
+      "labelMode": "Package Type",
+      "modeSingle": "Single repo",
+      "modeBundle": "Bundle (many repos)",
+      "labelShowcaseRepo": "Showcase repo owner (catalogue & sync) *",
+      "labelBundleRepos": "Bundle repositories *",
+      "addBundleRepo": "Add repository",
+      "removeBundleRepo": "Remove",
+      "bundleReposHint": "Customers who buy this bundle become collaborators on every repository listed below. Find the repos using the org search:",
+      "bundleEmptyError": "A bundle must list at least one repository, and every row needs a non-empty owner and repo.",
+      "permissionBundleHint": "This access level applies to every repository in the bundle."
     },
     "breadcrumbPreview": {
       "cataloguePage": "カタログページ:",

@@ -54,7 +54,17 @@
       "permissionWrite": "เขียน",
       "permissionMaintain": "ดูแลรักษา",
       "permissionAdmin": "ผู้ดูแลระบบ",
-      "permissionGatedHint": "การเข้าถึงระดับเขียนขึ้นไปถูกปิดใช้งาน เปิดใช้ 'อนุญาตสิทธิ์ GitHub แบบขยาย' ในการตั้งค่าปลั๊กอิน GHRM เพื่อให้สิทธิ์มากกว่าการอ่าน"
+      "permissionGatedHint": "การเข้าถึงระดับเขียนขึ้นไปถูกปิดใช้งาน เปิดใช้ 'อนุญาตสิทธิ์ GitHub แบบขยาย' ในการตั้งค่าปลั๊กอิน GHRM เพื่อให้สิทธิ์มากกว่าการอ่าน",
+      "labelMode": "Package Type",
+      "modeSingle": "Single repo",
+      "modeBundle": "Bundle (many repos)",
+      "labelShowcaseRepo": "Showcase repo owner (catalogue & sync) *",
+      "labelBundleRepos": "Bundle repositories *",
+      "addBundleRepo": "Add repository",
+      "removeBundleRepo": "Remove",
+      "bundleReposHint": "Customers who buy this bundle become collaborators on every repository listed below. Find the repos using the org search:",
+      "bundleEmptyError": "A bundle must list at least one repository, and every row needs a non-empty owner and repo.",
+      "permissionBundleHint": "This access level applies to every repository in the bundle."
     },
     "breadcrumbPreview": {
       "cataloguePage": "หน้าแคตตาล็อก:",

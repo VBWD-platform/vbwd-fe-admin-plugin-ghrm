@@ -27,10 +27,28 @@
         >
       </div>
 
-      <!-- GitHub Repo -->
+      <!-- Package kind: Single repo vs Bundle -->
+      <div class="ghrm-field">
+        <label class="ghrm-label">{{ $t('ghrm.softwareTab.labelMode') }}</label>
+        <select
+          v-model="form.package_kind"
+          class="ghrm-input"
+          data-testid="ghrm-package-kind"
+          @change="onModeChange"
+        >
+          <option value="single">
+            {{ $t('ghrm.softwareTab.modeSingle') }}
+          </option>
+          <option value="bundle">
+            {{ $t('ghrm.softwareTab.modeBundle') }}
+          </option>
+        </select>
+      </div>
+
+      <!-- GitHub Repo (representative / showcase repo) -->
       <div class="ghrm-field-row">
         <div class="ghrm-field">
-          <label class="ghrm-label">{{ $t('ghrm.softwareTab.labelGithubOwner') }}</label>
+          <label class="ghrm-label">{{ isBundle ? $t('ghrm.softwareTab.labelShowcaseRepo') : $t('ghrm.softwareTab.labelGithubOwner') }}</label>
           <input
             v-model="form.github_owner"
             class="ghrm-input"
@@ -49,6 +67,66 @@
             data-testid="ghrm-github-repo"
           >
         </div>
+      </div>
+
+      <!-- Bundle repo list editor -->
+      <div
+        v-if="isBundle"
+        class="ghrm-field"
+      >
+        <label class="ghrm-label">{{ $t('ghrm.softwareTab.labelBundleRepos') }}</label>
+        <p class="ghrm-hint">
+          {{ $t('ghrm.softwareTab.bundleReposHint') }}
+          <a
+            :href="bundleSearchUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >{{ bundleSearchUrl }}</a>
+        </p>
+        <div
+          v-for="(repo, index) in form.bundle_repos"
+          :key="index"
+          class="ghrm-field-row ghrm-bundle-row"
+          :data-testid="`ghrm-bundle-repo-row-${index}`"
+        >
+          <input
+            v-model="repo.owner"
+            class="ghrm-input"
+            type="text"
+            :placeholder="$t('ghrm.softwareTab.placeholderGithubOwner')"
+            :data-testid="`ghrm-bundle-repo-row-${index}-owner`"
+          >
+          <input
+            v-model="repo.repo"
+            class="ghrm-input"
+            type="text"
+            :placeholder="$t('ghrm.softwareTab.placeholderGithubRepo')"
+            :data-testid="`ghrm-bundle-repo-row-${index}-repo`"
+          >
+          <button
+            type="button"
+            class="ghrm-btn ghrm-btn--warn"
+            :data-testid="`ghrm-bundle-repo-row-${index}-remove`"
+            @click="removeBundleRepo(index)"
+          >
+            {{ $t('ghrm.softwareTab.removeBundleRepo') }}
+          </button>
+        </div>
+        <button
+          type="button"
+          class="ghrm-btn"
+          data-testid="ghrm-bundle-add-repo"
+          @click="addBundleRepo"
+        >
+          {{ $t('ghrm.softwareTab.addBundleRepo') }}
+        </button>
+        <p
+          v-if="bundleError"
+          class="ghrm-error-inline"
+          data-testid="ghrm-bundle-empty-error"
+        >
+          {{ $t('ghrm.softwareTab.bundleEmptyError') }}
+        </p>
       </div>
 
       <!-- Description -->
@@ -86,6 +164,13 @@
           data-testid="ghrm-permission-hint"
         >
           {{ $t('ghrm.softwareTab.permissionGatedHint') }}
+        </p>
+        <p
+          v-if="isBundle"
+          class="ghrm-hint"
+          data-testid="ghrm-permission-bundle-hint"
+        >
+          {{ $t('ghrm.softwareTab.permissionBundleHint') }}
         </p>
       </div>
 
@@ -317,6 +402,11 @@ function authHeaders(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+interface BundleRepo {
+  owner: string;
+  repo: string;
+}
+
 interface GhrmPackage {
   id: string;
   slug: string;
@@ -329,9 +419,13 @@ interface GhrmPackage {
   sync_api_key: string;
   last_synced_at: string | null;
   collaborator_permission: string;
+  package_kind?: string;
+  bundle_repos?: BundleRepo[];
 }
 
 const DEFAULT_COLLABORATOR_PERMISSION = 'pull';
+const PACKAGE_KIND_SINGLE = 'single';
+const PACKAGE_KIND_BUNDLE = 'bundle';
 
 const collaboratorPermissionLevels: { value: string; labelKey: string }[] = [
   { value: 'pull', labelKey: 'ghrm.softwareTab.permissionRead' },
@@ -387,7 +481,43 @@ const form = ref({
   author_name: '',
   icon_url: '',
   collaborator_permission: DEFAULT_COLLABORATOR_PERMISSION,
+  package_kind: PACKAGE_KIND_SINGLE,
+  bundle_repos: [] as BundleRepo[],
 });
+
+const bundleError = ref(false);
+
+const isBundle = computed(() => form.value.package_kind === PACKAGE_KIND_BUNDLE);
+
+const bundleSearchUrl = computed(() => {
+  const owner = form.value.github_owner.trim();
+  const query = form.value.github_repo.trim();
+  if (!owner) return 'https://github.com';
+  const base = `https://github.com/orgs/${owner}/repositories`;
+  return query ? `${base}?q=${encodeURIComponent(query)}` : base;
+});
+
+function onModeChange(): void {
+  bundleError.value = false;
+  if (form.value.package_kind === PACKAGE_KIND_SINGLE) {
+    form.value.bundle_repos = [];
+  }
+}
+
+function addBundleRepo(): void {
+  form.value.bundle_repos.push({ owner: '', repo: '' });
+}
+
+function removeBundleRepo(index: number): void {
+  form.value.bundle_repos.splice(index, 1);
+}
+
+function bundleReposValid(): boolean {
+  if (form.value.bundle_repos.length === 0) return false;
+  return form.value.bundle_repos.every(
+    (entry) => entry.owner.trim() !== '' && entry.repo.trim() !== ''
+  );
+}
 
 const partialSyncFields: PartialSyncField[] = ['readme', 'changelog', 'screenshots'];
 
@@ -458,6 +588,8 @@ async function loadPackage(): Promise<void> {
         author_name: found.author_name || '',
         icon_url: found.icon_url || '',
         collaborator_permission: found.collaborator_permission || DEFAULT_COLLABORATOR_PERMISSION,
+        package_kind: found.package_kind === PACKAGE_KIND_BUNDLE ? PACKAGE_KIND_BUNDLE : PACKAGE_KIND_SINGLE,
+        bundle_repos: (found.bundle_repos || []).map((entry) => ({ owner: entry.owner, repo: entry.repo })),
       };
     }
   } catch (e) {
@@ -469,9 +601,20 @@ async function loadPackage(): Promise<void> {
 
 
 async function save(): Promise<void> {
+  bundleError.value = false;
+  if (isBundle.value && !bundleReposValid()) {
+    bundleError.value = true;
+    return;
+  }
   saving.value = true;
   saveError.value = null;
   try {
+    const bundleRepos = isBundle.value
+      ? form.value.bundle_repos.map((entry) => ({
+          owner: entry.owner.trim(),
+          repo: entry.repo.trim(),
+        }))
+      : [];
     const body = {
       tariff_plan_id: props.planId,
       name: form.value.name || form.value.github_repo,
@@ -482,6 +625,8 @@ async function save(): Promise<void> {
       author_name: form.value.author_name || null,
       icon_url: form.value.icon_url || null,
       collaborator_permission: form.value.collaborator_permission || DEFAULT_COLLABORATOR_PERMISSION,
+      package_kind: form.value.package_kind,
+      bundle_repos: bundleRepos,
     };
     const jsonHeaders = { 'Content-Type': 'application/json' };
     if (pkg.value) {
