@@ -105,11 +105,13 @@
           >
           <button
             type="button"
-            class="ghrm-btn ghrm-btn--warn"
+            class="ghrm-icon-btn ghrm-icon-btn--warn"
+            :title="$t('ghrm.softwareTab.removeBundleRepo')"
+            :aria-label="$t('ghrm.softwareTab.removeBundleRepo')"
             :data-testid="`ghrm-bundle-repo-row-${index}-remove`"
             @click="removeBundleRepo(index)"
           >
-            {{ $t('ghrm.softwareTab.removeBundleRepo') }}
+            &times;
           </button>
         </div>
         <button
@@ -767,6 +769,47 @@ onMounted(() => {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 18px;
+}
+
+/* Bundle repo rows: owner + repo inputs flex, small icon button on the right. */
+.ghrm-bundle-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ghrm-bundle-row .ghrm-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.ghrm-icon-btn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ghrm-icon-btn:hover:not(:disabled) {
+  background: #e9ecef;
+}
+
+.ghrm-icon-btn--warn:hover:not(:disabled) {
+  background: #e74c3c;
+  border-color: #c0392b;
+  color: #fff;
 }
 
 .ghrm-label {
