@@ -392,12 +392,31 @@
       >
         {{ saveError }}
       </p>
+
+      <!-- Tags + Custom fields (S77, generic editors) — shown once a package
+           exists (its id addresses the values). -->
+      <div
+        v-if="pkg && pkg.id"
+        class="ghrm-field"
+        data-testid="ghrm-package-tags-custom-fields"
+      >
+        <TagPicker
+          entity-type="ghrm_software_package"
+          :entity-id="pkg.id"
+        />
+        <CustomFieldsEditor
+          entity-type="ghrm_software_package"
+          :entity-id="pkg.id"
+        />
+      </div>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import TagPicker from '@/components/TagPicker.vue';
+import CustomFieldsEditor from '@/components/CustomFieldsEditor.vue';
 
 function authHeaders(): Record<string, string> {
   const token = localStorage.getItem('admin_token') || '';
