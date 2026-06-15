@@ -55,6 +55,16 @@ function registerSoftwareTab(requiredCategorySlugs: string[]): void {
  * were registered synchronously. The backend plugin is named `ghrm`.
  */
 async function syncSoftwareCategorySlugs(): Promise<void> {
+  // Don't probe before the user is authenticated. An unauthenticated
+  // GET /admin/plugins/ghrm returns 401, and the shared ApiClient's 401
+  // handler treats ANY 401 as a session expiry → it logs the user out and
+  // redirects to /admin/login. Plugins install/activate on boot (pre-login),
+  // so without this guard the boot-time probe's 401 silently logs the admin
+  // out moments after they sign in. The plugin set re-activates after login,
+  // so this runs again with a token and the configured slugs still load.
+  if (!api.getToken()) {
+    return;
+  }
   try {
     const data = await api.get('/admin/plugins/ghrm') as { savedConfig?: Record<string, unknown> };
     const saved = data?.savedConfig ?? {};
