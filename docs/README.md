@@ -76,7 +76,7 @@ The tab only appears when the plan belongs to a software-related category (`back
 
 ## Plugin boundary
 
-- **Does not** modify `cms-admin`, `taro-admin`, or any other admin plugin
+- **Does not** modify `cms-admin`, `tarot-admin`, or any other admin plugin
 - **Does not** modify the core admin layout or sidebar directly — uses `extensionRegistry`
 - Communicates with backend exclusively via `/api/v1/admin/ghrm/...` routes
 - The fe-user `ghrm` plugin and fe-admin `ghrm-admin` plugin are independent — neither imports from the other
