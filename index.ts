@@ -81,7 +81,7 @@ async function syncSoftwareCategorySlugs(): Promise<void> {
 
 export const ghrmAdminPlugin: IPlugin = {
   name: 'ghrm-admin',
-  version: '26.6',
+  version: '26.6.1',
   description: 'GitHub Repo Manager — software tab on tariff plan edit page',
 
   install(sdk: IPlatformSDK) {
